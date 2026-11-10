@@ -6,35 +6,14 @@ fetch("https://xaus.com/api/v1/spot")
         return response.json()
     })
     .then(data => {
-        let main = document.getElementById('main')
-        let infoPrix = document.getElementById('infoPrix')
-        let input = document.getElementById('metal')
-        input.addEventListener('change', (event) => {
-            let selected = event.target.value; 
-            console.log(selected);
-            
-            if(selected == "or"){
-                infoPrix.textContent = `
-                Prix d'Or (usd/gram) : ${data['per_gram_usd']} ${data['xau']['currency']}
-                `
-            }
-            else if(selected == "argent"){
-                //api gives silver price in oz so must convert to gram (multiply by 31.103...)
-                infoPrix.textContent = `
-                Prix D'argent (usd/gram): ${data['silver_usd_oz'] / 31.1034768} USD
-                `
-            }
-            else{
-                infoPrix.textContent = `
-                Il faut selectionne un metal
-                `
-            }
-            infoPrix.textContent += `\nprix a periode: ${data.price_as_of}`
-        })
-        console.log(data);
-        
-        
+        const goldPrice = document.getElementById("goldPrice")
+        const silverPrice = document.getElementById("silverPrice")
+        const dateArea = document.getElementById('date')
+        goldPrice.textContent = `Prix: ${data['per_gram_usd'].toFixed(3)} ${data['xau']['currency']}`
+        silverPrice.textContent = `Prix: ${(data['silver_usd_oz'] / 31.1034768).toFixed(3)} ${data['xau']['currency']}`
+        dateArea.textContent = `Date: ${data['data_state']['as_of'].split("T")[0]}
+        Time: ${data['data_state']['as_of'].split("T")[1]}`
     })
     .catch(error => {
-        infoPrix.textContent = `ERROR: ${error}`
+        console.error(error);
     });

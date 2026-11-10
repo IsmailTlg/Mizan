@@ -1,3 +1,21 @@
-#infoPrix{
-    white-space: pre-line; /*this is to count \n as line breaks*/
+#mainInfo{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border: black 1px solid;
+    padding: 10px;
+    border-radius: 5px;
+    gap: 40px;
+}
+#date{
+    width: 100%;
+    text-align: center;
 }

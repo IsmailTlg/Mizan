@@ -19,3 +19,16 @@
     width: 100%;
     text-align: center;
 }
+.arrows{
+    display: flex;
+    align-items: center;
+}
+.hide{
+    display: none;
+}
+.greenTxt{
+    color: green;
+}
+.redTxt{
+    color:red;
+}

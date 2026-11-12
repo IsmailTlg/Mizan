@@ -9,12 +9,23 @@
 </head>
 <body>
     <main id="main">
+        <select name="currency" id="currency">
+            <option value="">Choose currency</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EURO</option>
+            <option value="MAD">MAD</option>
+        </select>
         <section id="mainInfo">
             <div class="card">
                 <img src="assets/images/gold.png" alt="gold bar" width="250" height="200">
                 <div>
                     <h3>Or</h3>
                     <p id="goldPrice"></p>
+                    <div class="arrows">
+                    <p id="differenceGold"></p>
+                        <img src="assets/icons/arrowUp.png" alt="positive arrow" width="20" id="arrowUp">
+                        <img src="assets/icons/arrowDown.png" alt="negative arrow" width="20" id="arrowDown">
+                    </div>
                 </div>
             </div>
             <div class="card">

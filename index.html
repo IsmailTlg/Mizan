@@ -37,6 +37,29 @@
             </div>
         </section>
         <p id="date"></p>
+        <section>
+            <h2>Graphe d'Historie</h2>
+            <select name="metal" id="metal">
+                <option value="xau">Or</option>
+                <option value="silver">Argent</option>
+            </select>
+            <select name="currencyGraph" id="currencyGraph">
+                <option value="USD">USD</option>
+                <option value="EUR">EURO</option>
+                <option value="MAD">MAD</option>
+            </select>
+            <select name="periode" id="periode">
+                <option value="7">Last 7 Days</option>
+                <option value="30">Last 30 Days</option>
+            </select>
+            <select name="measure" id="measure">
+                <option value="gram">gram</option>
+                <option value="kg">Kilogram</option>
+                <option value="oz">oz</option>
+            </select>
+            <button id="generateBtn">Generate</button> <br>
+            <canvas id="Graph" width="800" height="350"></canvas>
+        </section>
     </main>
 </body>
 </html>

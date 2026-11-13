@@ -78,3 +78,76 @@ currency.addEventListener('change', function(){
     
     fetchinfo(currency.value)
 })
+
+
+async function fetchHistory(periode, metal, measure, currency) {
+    let urlAPI2;
+    if(periode == "7"){
+        urlAPI2 = "https://xaus.com/api/v1/chart?symbol="+metal+"&range=5d&interval=1d"
+    }
+    else if(periode == "30"){
+        urlAPI2 = "https://xaus.com/api/v1/chart?symbol="+metal+"&range=1mo&interval=1d"
+    }
+    let response = await fetch(urlAPI2)
+    if(!response.ok){
+        throw new Error("HTTP error, ", response.status)
+    }
+    let data = await response.json()
+    let history = data.points.map(points => points.c)
+    console.log(history);
+    const canvas = document.getElementById('Graph')
+    const ctx = canvas.getContext("2d")
+    let minPrice = Math.min(...history)
+    let maxPrice = Math.max(...history)
+    const margin = 20;
+    const graphWidth = canvas.width - margin * 2;
+    const graphHeight = canvas.height - margin * 2;
+    //this part is to draw the graph
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.beginPath()
+    history.forEach((value, i) => {
+        const x = margin + i * (graphWidth/(history.length - 1))
+        const y = margin + (maxPrice - value) / (maxPrice - minPrice) * graphHeight
+        if(i === 0){
+            ctx.moveTo(x, y)
+        }
+        else{
+            ctx.lineTo(x, y)
+        }
+    })
+    
+    ctx.strokeStyle = "green"
+    ctx.lineWidth = 2;
+    ctx.stroke()
+    history.forEach((value, i) => {
+        const x = margin + i * (graphWidth/(history.length - 1))
+        const y = margin + (maxPrice - value) / (maxPrice - minPrice) * graphHeight
+        ctx.beginPath();
+        ctx.arc(x,y,4,0, Math.PI * 2);
+        ctx.fill();
+    })
+    //now draw the X and Y axis
+    ctx.beginPath();
+    ctx.moveTo(margin, canvas.height-margin)
+    ctx.lineTo(canvas.width - margin+15, canvas.height - margin)
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(margin, canvas.height-margin)
+    ctx.lineTo(margin, margin-15)
+    ctx.strokeStyle = "black"
+    ctx.lineWidth = 1;
+    ctx.stroke()
+    
+
+}
+const graphBtnGenerate = document.getElementById("generateBtn")
+const graphMetalOption = document.getElementById("metal")
+const graphCurrencyOption = document.getElementById("currencyGraph")
+const graphPeriodeOption = document.getElementById("periode")
+const graphMeasureOption = document.getElementById("measure")
+graphBtnGenerate.addEventListener('click', function(){
+    fetchHistory(graphPeriodeOption.value, graphMetalOption.value)
+})
+

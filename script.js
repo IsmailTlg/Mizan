@@ -186,4 +186,36 @@ const graphMeasureOption = document.getElementById("measure")
 graphBtnGenerate.addEventListener('click', function(){
     fetchHistory(graphPeriodeOption.value, graphMetalOption.value, graphCurrencyOption.value, graphMeasureOption.value)
 })
+//US-05
+async function countPrice(grams){
+    try{
+        let response = await fetch("https://xaus.com/api/v1/spot")
+        if(!response.ok){
+            throw new Error("http error: ", response.status)
+        }
+        let data = await response.json()        
+        return (data['per_gram_usd'] * grams).toFixed(2) + " USD"
+    }
+    catch(error){
+        return error
+    }
+
+}
+function showPrice(){
+    let grams = document.getElementById("gramsInput")
+    let btn = document.getElementById("countBtn")
+    let resultArea = document.getElementById("result")
+    btn.addEventListener('click', async function(){
+        let value = Number(grams.value)
+        if(value < 0 || grams.value.trim() == ""){
+            resultArea.textContent = "Invalid Input"
+            resultArea.className = "redTxt"
+        }
+        else{
+            resultArea.className = ""
+            resultArea.textContent = `the Result Is : ${await countPrice(value)}`
+        }
+    })
+}
+showPrice()
 

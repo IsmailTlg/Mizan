@@ -9,13 +9,62 @@
 </head>
 <body>
     <main id="main">
-        <label for="metal">Metal:</label>
-        <select name="metal" id="metal">
-            <option value="">Select Metal</option>
-            <option value="or">Or</option>
-            <option value="argent">Argent</option>
+        <select name="currency" id="currency">
+            <option value="">Choose currency</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EURO</option>
+            <option value="MAD">MAD</option>
         </select>
-        <p id="infoPrix"></p>
+        <section id="mainInfo">
+            <div class="card">
+                <img src="assets/images/gold.png" alt="gold bar" width="250" height="200">
+                <div>
+                    <h3>Or</h3>
+                    <p id="goldPrice"></p>
+                    <div class="arrows">
+                    <p id="differenceGold"></p>
+                        <img src="assets/icons/arrowUp.png" alt="positive arrow" width="20" id="arrowUp">
+                        <img src="assets/icons/arrowDown.png" alt="negative arrow" width="20" id="arrowDown">
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="assets/images/silver.png" alt="silver bar" width="250" height="200">
+                <div>
+                    <h3>Argent</h3>
+                    <p id="silverPrice"></p>
+                </div>
+            </div>
+        </section>
+        <p id="date"></p>
+        <section>
+            <h2>Graphe d'Historie</h2>
+            <select name="metal" id="metal">
+                <option value="xau">Or</option>
+                <option value="silver">Argent</option>
+            </select>
+            <select name="currencyGraph" id="currencyGraph">
+                <option value="USD">USD</option>
+                <option value="EUR">EURO</option>
+                <option value="MAD">MAD</option>
+            </select>
+            <select name="periode" id="periode">
+                <option value="7">Last 7 Days</option>
+                <option value="30">Last 30 Days</option>
+            </select>
+            <select name="measure" id="measure">
+                <option value="gram">gram</option>
+                <option value="kg">Kilogram</option>
+                <option value="oz">oz</option>
+            </select>
+            <button id="generateBtn">Generate</button> <br>
+            <canvas id="Graph" width="800" height="350"></canvas>
+        </section>
+        <section>
+            <input type="number" placeholder="Enter grams" id="gramsInput">
+            <button id="countBtn">count</button>
+            <p id="result"></p>
+        </section>
     </main>
 </body>
 </html>

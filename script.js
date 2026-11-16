@@ -35,36 +35,61 @@ function fetchinfo(currency){
 const currency = document.getElementById("currency")
 setInterval(()=>{
     fetchinfo(currency.value)
+    getYestdayPrice()
 }, 60000);
 //US-02 (im gonna compare the price with yesterday's)
 async function getYestdayPrice(){
     try{    
         const response = await fetch("https://xaus.com/api/v1/history")
+        const responseSilv = await fetch("https://xaus.com/api/v1/chart?symbol=silver&range=5d&interval=1d")
+        const dataSilv = await responseSilv.json()
         const response2 = await fetch("https://xaus.com/api/v1/spot")
         const data2 = await response2.json()
+        let yesterdaySilv = dataSilv.points[dataSilv.points.length - 2]
+        console.log(yesterdaySilv);
+        
+        console.log(dataSilv);
+        
         if(!response.ok){
             throw new Error(`Https error, status ${response.status}`)
         }
-        console.log(response);
         
         const data = await response.json()
         const yesterday = data.points[data.points.length-2]
         //countaining difference
         let diff = (data2.xau.price - yesterday.c) * 100 / data2.xau.price 
+        let diffSilv = (data2['silver_usd_oz'] -  yesterdaySilv.c) * 100 / data2['silver_usd_oz']
+        console.log(diffSilv);
+
         const arrDown = document.getElementById("arrowDown")
         const arrUp = document.getElementById("arrowUp") 
         const diffLabelGold = document.getElementById("differenceGold")
+        const diffSilvLabel = document.getElementById("differenceSilver")
+        const arrUpSilv = document.getElementById('arrowUpSilv')
+        const arrDownSilv = document.getElementById("arrowDownSilv")
         if(diff > 0){
-            diffLabelGold.textContent = `+${diff.toFixed(3)}%`
+            diffLabelGold.textContent = `  +${diff.toFixed(3)}%`
             diffLabelGold.className = "greenTxt"
             arrDown.classList.add("hide")
             arrUp.classList.remove("hide")
         }
         else{
-            diffLabelGold.textContent = `${diff.toFixed(3)}%`
+            diffLabelGold.textContent = `  ${diff.toFixed(3)}%`
             diffLabelGold.className = "redTxt"
             arrDown.classList.remove("hide")
             arrUp.classList.add("hide")
+        }
+        if(diffSilv > 0){
+            diffSilvLabel.textContent = `  +${diffSilv.toFixed(3)}%`
+            diffSilvLabel.className = "greenTxt"
+            arrUpSilv.classList.remove("hide")
+            arrDownSilv.classList.add('hide')
+        }
+        else{
+            diffSilvLabel.textContent = `  ${diffSilv.toFixed(3)}%`
+            diffSilvLabel.classList = "redTxt"
+            arrUpSilv.classList.add('hide')
+            arrDownSilv.classList.remove('hide')
         }
     }
     catch(error){
@@ -72,7 +97,6 @@ async function getYestdayPrice(){
     }
 }
 getYestdayPrice()
-setInterval(getYestdayPrice, 60000);
 currency.value = localStorage.getItem('currency') || ""
 fetchinfo(currency.value)
 currency.addEventListener('change', function(){
@@ -224,5 +248,6 @@ showPrice()
 let ressayerBtn = document.getElementById("ressayerBtn");
 ressayerBtn.addEventListener("click", function(){
     fetchinfo(currency.value)
+    getYestdayPrice()
 })
 

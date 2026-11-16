@@ -15,10 +15,6 @@
     border-radius: 5px;
     gap: 40px;
 }
-#date{
-    width: 100%;
-    text-align: center;
-}
 .arrows{
     display: flex;
     align-items: center;
@@ -31,4 +27,10 @@
 }
 .redTxt{
     color:red;
+}
+#ressayerArea{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

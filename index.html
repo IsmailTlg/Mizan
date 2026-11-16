@@ -21,10 +21,10 @@
                 <div>
                     <h3>Or</h3>
                     <p id="goldPrice"></p>
-                    <div class="arrows">
-                    <p id="differenceGold"></p>
+                    <div class="arrows">    
                         <img src="assets/icons/arrowUp.png" alt="positive arrow" width="20" id="arrowUp">
                         <img src="assets/icons/arrowDown.png" alt="negative arrow" width="20" id="arrowDown">
+                        <p id="differenceGold"></p>
                     </div>
                 </div>
             </div>
@@ -33,10 +33,18 @@
                 <div>
                     <h3>Argent</h3>
                     <p id="silverPrice"></p>
+                    <div class="arrows">
+                        <img src="assets/icons/arrowUp.png" alt="positive arrow" width="20" id="arrowUpSilv">
+                        <img src="assets/icons/arrowDown.png" alt="negative arrow" width="20" id="arrowDownSilv">
+                        <p id="differenceSilver"></p>
+                    </div>
                 </div>
             </div>
         </section>
-        <p id="date"></p>
+        <div id="ressayerArea">
+            <p id="date"></p>
+            <button id="ressayerBtn">Ressayer</button>
+        </div>
         <section>
             <h2>Graphe d'Historie</h2>
             <select name="metal" id="metal">
@@ -65,7 +73,6 @@
             <button id="countBtn">count</button>
             <p id="result"></p>
         </section>
-        <button id="ressayerBtn">Ressayer</button>
     </main>
 </body>
 </html>

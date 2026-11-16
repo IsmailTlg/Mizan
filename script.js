@@ -32,7 +32,10 @@ function fetchinfo(currency){
             console.error(error);
         });    
 }
-setInterval(fetchinfo, 60000);
+const currency = document.getElementById("currency")
+setInterval(()=>{
+    fetchinfo(currency.value)
+}, 60000);
 //US-02 (im gonna compare the price with yesterday's)
 async function getYestdayPrice(){
     try{    
@@ -70,7 +73,6 @@ async function getYestdayPrice(){
 }
 getYestdayPrice()
 setInterval(getYestdayPrice, 60000);
-const currency = document.getElementById("currency")
 currency.value = localStorage.getItem('currency') || ""
 fetchinfo(currency.value)
 currency.addEventListener('change', function(){
@@ -218,4 +220,9 @@ function showPrice(){
     })
 }
 showPrice()
+//us-06
+let ressayerBtn = document.getElementById("ressayerBtn");
+ressayerBtn.addEventListener("click", function(){
+    fetchinfo(currency.value)
+})
 
